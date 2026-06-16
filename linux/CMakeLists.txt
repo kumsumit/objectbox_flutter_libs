@@ -14,12 +14,15 @@ cmake_policy(VERSION 3.10...3.24)
 # not be changed.
 set(PLUGIN_NAME "objectbox_flutter_libs_plugin")
 
+# Any new source files that you add to the plugin should be added here.
+list(APPEND PLUGIN_SOURCES
+  "objectbox_flutter_libs_plugin.cc"
+)
+
 # Define the plugin library target. Its name must not be changed (see comment
 # on PLUGIN_NAME above).
-#
-# Any new source files that you add to the plugin should be added here.
 add_library(${PLUGIN_NAME} SHARED
-  "objectbox_flutter_libs_plugin.cc"
+  ${PLUGIN_SOURCES}
 )
 
 # Apply a standard set of build settings that are configured in the
@@ -44,7 +47,11 @@ target_link_libraries(${PLUGIN_NAME} PRIVATE PkgConfig::GTK)
 # ----------------------------------------------------------------------
 # Download and add objectbox-c prebuilt library.
 
+<<<<<<< HEAD
 set(OBJECTBOX_VERSION 4.3.1)
+=======
+set(OBJECTBOX_VERSION 5.3.2)
+>>>>>>> refs/remotes/origin/main
 
 set(OBJECTBOX_ARCH ${CMAKE_SYSTEM_PROCESSOR})
 if (${OBJECTBOX_ARCH} MATCHES "x86_64")
@@ -77,6 +84,6 @@ endif()
 # Note: do not link the ObjectBox C library; the Dart library looks for it in a lib subfolder
 # where flutter build puts it when added below.
 set(objectbox_flutter_libs_bundled_libraries
-    "${objectbox-download_SOURCE_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}objectbox${CMAKE_SHARED_LIBRARY_SUFFIX}"
-    PARENT_SCOPE
+  "${objectbox-download_SOURCE_DIR}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}objectbox${CMAKE_SHARED_LIBRARY_SUFFIX}"
+  PARENT_SCOPE
 )
