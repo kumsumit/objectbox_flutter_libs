@@ -1,3 +1,6 @@
+import com.android.build.api.dsl.LibraryExtension
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     id("com.android.library")
 }
@@ -10,7 +13,7 @@ repositories {
     mavenCentral()
 }
 
-android {
+configure<LibraryExtension> {
     namespace = "io.objectbox.objectbox_flutter_libs"
     compileSdk = 37
 
@@ -23,14 +26,16 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_21.toString()
-    }
-
     sourceSets {
         getByName("main") {
-            java.srcDir("src/main/kotlin")
+            java.setSrcDirs(listOf("src/main/java", "src/main/kotlin"))
         }
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_21)
     }
 }
 
